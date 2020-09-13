@@ -1,7 +1,8 @@
-package com.example.jobsearch
+package com.example.jobsearch.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.jobsearch.R
 
 class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {

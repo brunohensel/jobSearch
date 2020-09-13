@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers.Main
 
 object JobRepository  {
 
-    var coroutineJob: CompletableJob? = null
+    private var coroutineJob: CompletableJob? = null
 
     fun fetchJobOffers(): LiveData<JobOffer>{
         coroutineJob = Job()
@@ -19,6 +19,7 @@ object JobRepository  {
                 coroutineJob?.let {coroutineJob ->
                     CoroutineScope(IO + coroutineJob).launch {
                         val jobOffer = RetrofitBuilder.apiService.getJobOffers()
+                        jobOffer.jobs.filter { !it.company_logo.isNullOrEmpty() }
                         withContext(Main){
                             value = jobOffer
                             coroutineJob.complete()
