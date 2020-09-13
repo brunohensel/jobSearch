@@ -7,19 +7,20 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 
-object JobRepository  {
+object JobRepository {
 
     private var coroutineJob: CompletableJob? = null
 
-    fun fetchJobOffers(): LiveData<List<JobOffer>>{
+    fun fetchJobOffers(): LiveData<List<JobOffer>> {
         coroutineJob = Job()
-        return object : LiveData<List<JobOffer>>(){
+        
+        return object : LiveData<List<JobOffer>>() {
             override fun onActive() {
                 super.onActive()
-                coroutineJob?.let {coroutineJob ->
+                coroutineJob?.let { coroutineJob ->
                     CoroutineScope(IO + coroutineJob).launch {
                         val jobOffer = RetrofitBuilder.apiService.getJobOffers()
-                        withContext(Main){
+                        withContext(Main) {
                             value = jobOffer
                             coroutineJob.complete()
                         }
@@ -30,7 +31,7 @@ object JobRepository  {
         }
     }
 
-    fun disposeCoroutineJob(){
+    fun disposeCoroutineJob() {
         coroutineJob?.cancel()
     }
 }
