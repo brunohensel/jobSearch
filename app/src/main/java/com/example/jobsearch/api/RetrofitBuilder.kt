@@ -13,7 +13,7 @@ object RetrofitBuilder {
             .addConverterFactory(GsonConverterFactory.create())
     }
 
-    val apiString: ApiService by lazy {
+    val apiService: ApiService by lazy {
         retrofit
             .build()
             .create(ApiService::class.java)

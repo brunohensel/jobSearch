@@ -1,6 +1,6 @@
 package com.example.jobsearch.model
 
-data class Job(val jobs: ArrayList<JobItem>)
+data class JobOffer(val jobs: ArrayList<JobItem>)
 
 data class JobItem(
     val company: String,
