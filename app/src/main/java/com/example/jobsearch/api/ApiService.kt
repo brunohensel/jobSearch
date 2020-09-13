@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    @GET("positions")
-    suspend fun getJobOffers(): JobOffer
+    @GET("positions.json")
+    suspend fun getJobOffers(): ArrayList<JobOffer>
 }

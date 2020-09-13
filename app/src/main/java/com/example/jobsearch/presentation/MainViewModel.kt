@@ -5,9 +5,9 @@ import com.example.jobsearch.repository.JobRepository
 
 class MainViewModel : ViewModel() {
 
-    fun techJobOffers(){
+    fun fetchJobOffers() =
         JobRepository.fetchJobOffers()
-    }
+
 
     fun disposeCoroutineJob(){
         JobRepository.disposeCoroutineJob()

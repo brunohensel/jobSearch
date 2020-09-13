@@ -11,15 +11,14 @@ object JobRepository  {
 
     private var coroutineJob: CompletableJob? = null
 
-    fun fetchJobOffers(): LiveData<JobOffer>{
+    fun fetchJobOffers(): LiveData<List<JobOffer>>{
         coroutineJob = Job()
-        return object : LiveData<JobOffer>(){
+        return object : LiveData<List<JobOffer>>(){
             override fun onActive() {
                 super.onActive()
                 coroutineJob?.let {coroutineJob ->
                     CoroutineScope(IO + coroutineJob).launch {
                         val jobOffer = RetrofitBuilder.apiService.getJobOffers()
-                        jobOffer.jobs.filter { !it.company_logo.isNullOrEmpty() }
                         withContext(Main){
                             value = jobOffer
                             coroutineJob.complete()
